@@ -6,10 +6,9 @@ public static class GameEndpoints
 {
     public static void MapGameEndpoints(this WebApplication webApplication)
     {
-        
-        webApplication.MapGet("/api/games/{gameName}", async (string gameName, IGameService gameService) =>
+        webApplication.MapGet("/api/games/search/{gameName}", async (string gameName, SearchGameByNameHandler handler) =>
         {
-          var game = await gameService.SearchGamesByNameAsync(gameName);
+          var game = await handler.HandleAsync(gameName);
         return Results.Ok(game);
             
         });

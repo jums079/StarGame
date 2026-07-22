@@ -1,23 +1,26 @@
 using StarGame.API.Endpoints;
+using StarGame.Application.DependencyInjection;
 using StarGame.Application.Interfaces;
-using StarGame.Application.Services;
+using StarGame.Infrastructure.DependencyInjection;
 using StarGame.Infrastructure.Providers;
 
+var builder = WebApplication.CreateBuilder(args);
 
-var webApplicationBuilder = WebApplication.CreateBuilder(args);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
-webApplicationBuilder.Services.AddEndpointsApiExplorer();
-webApplicationBuilder.Services.AddSwaggerGen();
-webApplicationBuilder.Services.AddHttpClient<IRawgApiProvider, RawgApiProvider>();
-webApplicationBuilder.Services.AddScoped<IGameService, GameService>(); 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<IRawgApiProvider, RawgApiProvider>();
 
-var webApplication = webApplicationBuilder.Build();
+var app = builder.Build();
 
-if (webApplication.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    webApplication.UseSwagger();
-    webApplication.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-webApplication.MapGameEndpoints();
-webApplication.Run();
+app.MapGameEndpoints();
+
+app.Run();
