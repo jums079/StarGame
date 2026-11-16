@@ -8,11 +8,6 @@
   </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="src\Infrastructure\Data\" />
-      <Folder Include="src\Infrastructure\Repositories\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
     </ItemGroup>
 
